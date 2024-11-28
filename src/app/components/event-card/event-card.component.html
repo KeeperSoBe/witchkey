@@ -1,0 +1,39 @@
+<div class="relative top-0 cursor-pointer transition-all hover:top-2">
+  <div>
+    {{ header }}
+  </div>
+
+  {{ body }}
+</div>
+
+<!--
+<template>
+  <b-card
+    @click="$emit('onClick')"
+    class="event-card mb-4"
+    text-variant="white"
+    header-bg-variant="primary"
+    header-class="fw-bold"
+    header-text-variant="white"
+  >
+    <template #header>
+      <b-row v-if="documentationLink">
+        <b-col cols="6">{{ header }}</b-col>
+        <b-col cols="6" class="text-end">
+          <b-icon
+            @click="openDocumentationLink()"
+            icon="patch-question"
+            aria-hidden="true"
+          ></b-icon>
+        </b-col>
+      </b-row>
+      <template v-else>{{ header }}</template>
+    </template>
+
+    <b-card-text class="fw-bold">
+      {{ body }}
+    </b-card-text>
+  </b-card>
+</template>
+
+ -->
