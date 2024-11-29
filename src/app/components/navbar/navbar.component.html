@@ -3,7 +3,7 @@
   <!-- Logo -->
   <div class="flex items-center">
     <svg
-      class="h-4 w-auto fill-gray-200"
+      class="relative h-4 w-auto fill-gray-200 transition-transform"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 576 512"
     >
@@ -50,6 +50,7 @@
 
     <!-- Table -->
     <button
+      (click)="toggleShowKeycodeTable.emit()"
       class="ml-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded fill-gray-400 hover:fill-gray-100"
     >
       <svg

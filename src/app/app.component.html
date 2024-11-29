@@ -44,5 +44,10 @@
         JavaScript event keycode
       </h1>
     </ng-template>
+
+    <app-keycode-table
+      [show]="isShowingKeycodeTable"
+      (close)="toggleShowKeycodeTable()"
+    />
   </main>
 </div>

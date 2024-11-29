@@ -3,6 +3,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { EventCardComponent } from './components/event-card/event-card.component';
+import { KeycodeTableComponent } from './components/keycode-table/keycode-table.component';
 
 interface KeyEventInterface {
   key: string;
@@ -20,7 +21,12 @@ const KeyEventLocation: { [key: number]: string } = {
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, NavbarComponent, EventCardComponent],
+  imports: [
+    CommonModule,
+    NavbarComponent,
+    EventCardComponent,
+    KeycodeTableComponent,
+  ],
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit, OnDestroy {
