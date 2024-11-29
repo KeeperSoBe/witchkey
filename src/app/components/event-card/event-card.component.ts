@@ -7,13 +7,13 @@ import { Component, Input } from '@angular/core';
   templateUrl: './event-card.component.html',
 })
 export class EventCardComponent {
-  @Input()
+  @Input({ required: true })
   public header!: string;
 
-  @Input()
+  @Input({ required: true })
   public body!: string;
 
-  @Input()
+  @Input({ required: true })
   public documentationLink!: string;
 
   public openDocumentationLink(): void {

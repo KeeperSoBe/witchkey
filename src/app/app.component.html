@@ -1,4 +1,4 @@
-<div class="flex h-screen w-screen flex-col bg-slate-800 text-gray-200">
+<div class="flex h-screen w-screen flex-col bg-slate-950 text-gray-100">
   <app-navbar
     [darkMode]="isDarkMode"
     [showingKeycodeTable]="isShowingKeycodeTable"
@@ -8,33 +8,38 @@
 
   <main class="flex h-full items-center justify-center">
     <ng-container *ngIf="allKeyCodes.length; else showWaitingKeyEventTemplate">
-      <div class="flex flex-col">
-        <h1 class="text-6xl font-medium capitalize">
-          {{ allKeyCodes[allKeyCodes.length - 1].code }}
+      @let keycode = allKeyCodes[allKeyCodes.length - 1];
+
+      <div class="flex w-full max-w-6xl flex-col px-4">
+        <h1 class="mx-auto text-8xl font-medium">
+          {{ keycode.keyCode }}
         </h1>
 
-        <!-- <div class="mt-12 flex justify-evenly">
+        <div class="mt-14 flex flex-col justify-evenly gap-8 md:flex-row">
           <app-event-card
-            header="header"
-            body="body"
-            documentationLink="documentationLink"
+            class="w-full"
+            header="Key"
+            [body]="keycode.key"
+            documentationLink="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key"
           />
           <app-event-card
-            header="header"
-            body="body"
-            documentationLink="documentationLink"
+            class="w-full"
+            header="Location"
+            [body]="keycode.location"
+            documentationLink="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/location"
           />
           <app-event-card
-            header="header"
-            body="body"
-            documentationLink="documentationLink"
+            class="w-full"
+            header="Code"
+            [body]="keycode.code"
+            documentationLink="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code"
           />
-        </div> -->
+        </div>
       </div>
     </ng-container>
 
     <ng-template #showWaitingKeyEventTemplate>
-      <h1 class="text-2xl">
+      <h1 class="text-center text-3xl">
         Press any key to get the <br />
         JavaScript event keycode
       </h1>
