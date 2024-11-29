@@ -20,7 +20,6 @@ const KeyEventLocation: { [key: number]: string } = {
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   imports: [CommonModule, NavbarComponent, EventCardComponent],
   templateUrl: './app.component.html',
 })
