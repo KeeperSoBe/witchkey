@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import keycodes from '../../constants/chrome.constants';
 import { CommonModule } from '@angular/common';
 import {
@@ -8,26 +14,13 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-
-// function escapeRegExp(str: string) {
-//   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-// }
-
-// function fuzzyMatch(pattern, str) {
-//   pattern =
-//     '.*' +
-//     pattern
-//       .split('')
-//       .map((l) => `${escapeRegExp(l)}.*`)
-//       .join('');
-//   const re = new RegExp(pattern);
-//   return re.test(str);
-// }
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'app-keycode-table',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './keycode-table.component.html',
   animations: [
     trigger('flyInOut', [
@@ -42,12 +35,14 @@ import {
     ]),
   ],
 })
-export class KeycodeTableComponent {
+export class KeycodeTableComponent implements AfterViewInit {
   @Input({ required: true })
   public show = false;
 
   @Output()
   public readonly close: EventEmitter<void> = new EventEmitter<void>();
+
+  public readonly searchForm = new FormControl();
 
   public browser: 'chrome' | 'firefox' | 'safari' | 'edge' = 'chrome';
 
@@ -65,31 +60,52 @@ export class KeycodeTableComponent {
     { key: 'location', sortable: true },
   ];
 
-  public searchText = '';
-
-  public readonly chromeKeycodes = keycodes.sort(
-    (a, b) => a.keyCode - b.keyCode,
-  );
+  public readonly chromeKeycodes = keycodes;
 
   public searchResults: {
     code: string;
     keyCode: number;
     key: string;
     location: string;
-  }[] = [];
+  }[] = this.chromeKeycodes.sort((a, b) => a.keyCode - b.keyCode);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
-  public handleSearchResults(_results: any): void {
-    // this.searchResults = this.chromeKeycodes.filter(({ key }) =>
-    //   fuzzyMatch(this.searchText, key),
-    // );
-    // console.log('handleSearchResults: ', results);
-    // this.searchResults = results.map((r) => r.item);
+  public ngAfterViewInit(): void {
+    this.searchForm.valueChanges
+      .pipe(debounceTime(1250))
+      .pipe(distinctUntilChanged())
+      .subscribe((value) => {
+        console.log('delayed key press value', value);
+        this.search();
+      });
   }
 
-  public detectBrowser(): void {
-    if (navigator.userAgent.indexOf('Chrome') !== -1) {
-      this.browser = 'chrome';
-    }
+  public search() {
+    this.searchResults = this.chromeKeycodes.filter((keycode) => {
+      return this.fuzzyMatch(
+        this.searchForm.value.toLowerCase(),
+        keycode.code.toLowerCase(),
+      );
+    });
   }
+
+  private escapeRegExp(str: string): string {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  private fuzzyMatch(pattern: string, str: string): boolean {
+    pattern =
+      '.*' +
+      pattern
+        .split('')
+        .map((l) => `${this.escapeRegExp(l)}.*`)
+        .join('');
+
+    return new RegExp(pattern).test(str);
+  }
+
+  // public detectBrowser(): void {
+  //   if (navigator.userAgent.indexOf('Chrome') !== -1) {
+  //     this.browser = 'chrome';
+  //   }
+  // }
 }
