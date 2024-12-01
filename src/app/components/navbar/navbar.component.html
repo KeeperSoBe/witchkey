@@ -3,7 +3,7 @@
   <!-- Logo -->
   <div class="flex items-center">
     <svg
-      class="relative h-4 w-auto fill-gray-200 transition-transform"
+      class="relative h-4 w-auto fill-slate-800 transition-transform dark:fill-gray-200"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 576 512"
     >
@@ -19,7 +19,8 @@
   <div class="flex">
     <!-- Lightbulb -->
     <button
-      class="flex h-8 w-8 cursor-pointer items-center justify-center rounded fill-gray-400 hover:fill-gray-100"
+      (click)="toggleDarkMode.emit()"
+      class="flex h-8 w-8 cursor-pointer items-center justify-center rounded fill-gray-400 hover:fill-slate-800 dark:hover:fill-gray-100"
     >
       <!-- Off -->
       <ng-container *ngIf="darkMode; else showLightModeIcon">
@@ -51,10 +52,12 @@
     <!-- Table -->
     <button
       (click)="toggleShowKeycodeTable.emit()"
-      class="ml-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded fill-gray-400 hover:fill-gray-100"
+      class="ml-2 flex h-8 cursor-pointer items-center justify-center rounded fill-gray-400 text-gray-400 hover:fill-slate-800 hover:text-slate-800 dark:hover:fill-gray-100 dark:hover:text-gray-100"
     >
+      Events
+
       <svg
-        class="h-5 w-auto"
+        class="ml-2 h-5 w-auto"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 512 512"
       >
