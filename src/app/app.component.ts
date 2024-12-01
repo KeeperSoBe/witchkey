@@ -4,6 +4,7 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { EventCardComponent } from './components/event-card/event-card.component';
 import { KeycodeTableComponent } from './components/keycode-table/keycode-table.component';
+import { ToasterComponent } from './components/toaster/toaster.component';
 
 interface KeyEventInterface {
   key: string;
@@ -23,7 +24,9 @@ const KeyEventLocation: { [key: number]: string } = {
   selector: 'app-root',
   imports: [
     CommonModule,
+
     NavbarComponent,
+    ToasterComponent,
     EventCardComponent,
     KeycodeTableComponent,
   ],
@@ -33,6 +36,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public readonly allKeyCodes: KeyEventInterface[] = [];
 
   public isDarkMode = true;
+
   public isShowingKeycodeTable = false;
 
   public constructor(
@@ -44,6 +48,10 @@ export class AppComponent implements OnInit, OnDestroy {
     this.document.addEventListener('keydown', (event) =>
       this.keydownHandler(event),
     );
+
+    this.isDarkMode =
+      this.document.defaultView?.matchMedia('(prefers-color-scheme: dark)')
+        .matches || false;
   }
 
   public ngOnDestroy(): void {
@@ -89,13 +97,20 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
 
-  // public copyToClipboard(message: string): void {
-  //   navigator.clipboard.writeText(message).then(
-  //     () => {
-  //       const toaster = this.$refs.toaster as Toaster;
-  //       toaster.createToast('Copied to clipboard');
-  //     },
-  //     (err) => console.error('Async: Could not copy text: ', err),
-  //   );
-  // }
+  public async copyToClipboard(message: string): Promise<void> {
+    // await Clipboard.prototype.writeText(message);
+    const input = document.createElement('textarea');
+    input.style.position = 'fixed';
+    input.style.left = '0';
+    input.style.top = '0';
+    input.style.opacity = '0';
+    input.value = message;
+    document.body.appendChild(input);
+    input.focus();
+    input.select();
+    document.execCommand('copy');
+    document.body.removeChild(input);
+
+    ToasterComponent.addToast('info');
+  }
 }

@@ -2,6 +2,7 @@
 // eslint-disable-next-line no-undef
 module.exports = {
   content: ['./src/**/*.{html,ts}'],
+  darkMode: 'selector',
   theme: {
     extend: {},
   },

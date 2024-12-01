@@ -1,4 +1,9 @@
-<div class="flex h-screen w-screen flex-col bg-slate-950 text-gray-100">
+<div
+  class="flex h-screen w-screen flex-col bg-gray-100 text-slate-900 dark:bg-slate-950 dark:text-gray-100"
+  [ngClass]="{ dark: isDarkMode }"
+>
+  <app-toaster />
+
   <app-navbar
     [darkMode]="isDarkMode"
     [showingKeycodeTable]="isShowingKeycodeTable"
@@ -21,18 +26,21 @@
             header="Key"
             [body]="keycode.key"
             documentationLink="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key"
+            (click)="copyToClipboard(keycode.key)"
           />
           <app-event-card
             class="w-full"
             header="Location"
             [body]="keycode.location"
             documentationLink="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/location"
+            (click)="copyToClipboard(keycode.location)"
           />
           <app-event-card
             class="w-full"
             header="Code"
             [body]="keycode.code"
             documentationLink="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code"
+            (click)="copyToClipboard(keycode.code)"
           />
         </div>
       </div>
