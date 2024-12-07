@@ -28,7 +28,6 @@ const keycodes: {
     location: '1 (Left-side modifier keys)',
   },
   { code: 'KeyC', keyCode: 67, key: 'c', location: '0 (General keys)' },
-
   { code: 'KeyQ', keyCode: 81, key: 'q', location: '0 (General keys)' },
   { code: 'KeyW', keyCode: 87, key: 'w', location: '0 (General keys)' },
   { code: 'KeyE', keyCode: 69, key: 'e', location: '0 (General keys)' },

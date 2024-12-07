@@ -22,7 +22,7 @@
 <h3 align="center">Witchkey</h3>
 
   <p align="center">
-    A simple page for finding keyboard event codes 
+    A simple page for finding JavaScript keyboard event codes 
     <br />
     <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
     <br />
@@ -65,9 +65,9 @@
 
 ## About The Project
 
-Recreating the game from Unity's 'Rouge like' tutorial, using just TypeScript.
+Recreating an old online for finding JavaScript keyboard event codes.
 
-Assets have been pillaged from the Unity tutorial (At the time of it being available), they remain unchanged and the property of Unity.
+The project is intended to be as lightweight as possible, using no additional runtime dependencies other than Angular.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

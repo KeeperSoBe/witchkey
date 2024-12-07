@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-event-card',
@@ -14,6 +14,10 @@ export class EventCardComponent {
 
   @Input({ required: true })
   public documentationLink!: string;
+
+  @Output()
+  public readonly copyToClipboard: EventEmitter<void> =
+    new EventEmitter<void>();
 
   public openDocumentationLink(): void {
     window.open(this.documentationLink);

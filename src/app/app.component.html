@@ -26,21 +26,21 @@
             header="Key"
             [body]="keycode.key"
             documentationLink="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key"
-            (click)="copyToClipboard(keycode.key)"
+            (copyToClipboard)="copyToClipboard(keycode.key)"
           />
           <app-event-card
             class="w-full"
             header="Location"
             [body]="keycode.location"
             documentationLink="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/location"
-            (click)="copyToClipboard(keycode.location)"
+            (copyToClipboard)="copyToClipboard(keycode.location)"
           />
           <app-event-card
             class="w-full"
             header="Code"
             [body]="keycode.code"
             documentationLink="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code"
-            (click)="copyToClipboard(keycode.code)"
+            (copyToClipboard)="copyToClipboard(keycode.code)"
           />
         </div>
       </div>
