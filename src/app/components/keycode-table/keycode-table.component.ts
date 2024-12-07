@@ -1,8 +1,8 @@
 import {
-  AfterViewInit,
   Component,
   EventEmitter,
   Input,
+  OnDestroy,
   Output,
 } from '@angular/core';
 import keycodes from '../../constants/chrome.constants';
@@ -35,7 +35,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
     ]),
   ],
 })
-export class KeycodeTableComponent implements AfterViewInit {
+export class KeycodeTableComponent implements OnDestroy {
   @Input({ required: true })
   public show = false;
 
@@ -69,14 +69,13 @@ export class KeycodeTableComponent implements AfterViewInit {
     location: string;
   }[] = this.chromeKeycodes.sort((a, b) => a.keyCode - b.keyCode);
 
-  public ngAfterViewInit(): void {
-    this.searchForm.valueChanges
-      .pipe(debounceTime(1250))
-      .pipe(distinctUntilChanged())
-      .subscribe((value) => {
-        console.log('delayed key press value', value);
-        this.search();
-      });
+  private readonly searchFormSub = this.searchForm.valueChanges
+    .pipe(debounceTime(1250))
+    .pipe(distinctUntilChanged())
+    .subscribe(() => this.search());
+
+  public ngOnDestroy(): void {
+    this.searchFormSub?.unsubscribe();
   }
 
   public search() {
@@ -102,10 +101,4 @@ export class KeycodeTableComponent implements AfterViewInit {
 
     return new RegExp(pattern).test(str);
   }
-
-  // public detectBrowser(): void {
-  //   if (navigator.userAgent.indexOf('Chrome') !== -1) {
-  //     this.browser = 'chrome';
-  //   }
-  // }
 }

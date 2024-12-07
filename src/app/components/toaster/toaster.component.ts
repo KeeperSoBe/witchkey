@@ -59,7 +59,7 @@ export class ToasterComponent {
     this.toasts.push({
       type,
       message,
-      handler: setTimeout(() => this.closeAlert(type, message), 2500),
+      handler: this.createToastHandler(type, message),
     });
   }
 
@@ -85,5 +85,12 @@ export class ToasterComponent {
       clearTimeout(this.toasts[indexOfToast].handler);
       this.toasts.splice(indexOfToast, 1);
     }
+  }
+
+  private static createToastHandler(
+    type: ToastType,
+    message: string,
+  ): ReturnType<typeof setTimeout> {
+    return setTimeout(() => this.closeAlert(type, message), 2500);
   }
 }

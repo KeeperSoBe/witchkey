@@ -16,7 +16,14 @@ describe('KeycodeTableComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should create', () => expect(component).toBeTruthy());
+
+  describe('Method: escapeRegExp', () => {
+    it('should return a given string after calling replace with the regexp', () => {
+      const replace = jest.spyOn(String.prototype, 'replace');
+
+      expect(component['escapeRegExp']('mock-string'));
+      expect(replace).toHaveBeenCalledWith(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    });
   });
 });
