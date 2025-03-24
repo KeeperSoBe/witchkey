@@ -24,7 +24,6 @@ const KeyEventLocation: { [key: number]: string } = {
   selector: 'app-root',
   imports: [
     CommonModule,
-
     NavbarComponent,
     ToasterComponent,
     EventCardComponent,
@@ -98,7 +97,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   public async copyToClipboard(message: string): Promise<void> {
-    // await Clipboard.prototype.writeText(message);
     const input = document.createElement('textarea');
     input.style.position = 'fixed';
     input.style.left = '0';
